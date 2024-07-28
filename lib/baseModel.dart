@@ -28,7 +28,7 @@ class BaseModel extends Model {
 
 //вызывается при перемещении м/у экрана списка и вывода
   void setStackIndex(int stacIndex) {
-    stacIndex = stacIndex;
+    stackIndex = stacIndex;
     notifyListeners();
   }
 }

@@ -21,8 +21,8 @@ class NotesEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _titleEditingController.text = notesModel.entityBeingEdited.title;
-    _contentEditingController.text = notesModel.entityBeingEdited.content;
+    _titleEditingController.text = notesModel.entityBeingEdited != null ? notesModel.entityBeingEdited.title : '';
+    _contentEditingController.text = notesModel.entityBeingEdited != null ? notesModel.entityBeingEdited.content : '';
     return ScopedModel(
       model: notesModel,
       child: ScopedModelDescendant<NotesModel>(
