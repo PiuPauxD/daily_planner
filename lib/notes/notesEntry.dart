@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_book/notes/notesList.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'notesDBWorker.dart';
 import 'notesModel.dart' show NotesModel, notesModel;
@@ -21,15 +22,19 @@ class NotesEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _titleEditingController.text = notesModel.entityBeingEdited != null ? notesModel.entityBeingEdited.title : '';
-    _contentEditingController.text = notesModel.entityBeingEdited != null ? notesModel.entityBeingEdited.content : '';
+    _titleEditingController.text = notesModel.entityBeingEdited != null
+        ? notesModel.entityBeingEdited.title
+        : '';
+    _contentEditingController.text = notesModel.entityBeingEdited != null
+        ? notesModel.entityBeingEdited.content
+        : '';
     return ScopedModel(
       model: notesModel,
       child: ScopedModelDescendant<NotesModel>(
           builder: (BuildContext context, Widget? child, NotesModel model) {
         return Scaffold(
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: Row(
               children: [
                 ElevatedButton(
@@ -43,6 +48,7 @@ class NotesEntry extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     _save(context, notesModel);
+                    model.setStackIndex(0);
                   },
                   child: const Text('Save'),
                 ),
@@ -79,13 +85,13 @@ class NotesEntry extends StatelessWidget {
                             shape: Border.all(width: 18, color: Colors.red) +
                                 Border.all(
                                     width: 6,
-                                    color: notesModel.color == 'red'
+                                    color: notesModel.color == "red"
                                         ? Colors.red
                                         : Theme.of(context).canvasColor),
                           ),
                         ),
                         onTap: () {
-                          notesModel.entityBeingEdited.color = 'red';
+                          notesModel.entityBeingEdited.color = "red";
                           notesModel.setColor('red');
                         },
                       ),
@@ -96,14 +102,14 @@ class NotesEntry extends StatelessWidget {
                             shape: Border.all(width: 18, color: Colors.green) +
                                 Border.all(
                                     width: 6,
-                                    color: notesModel.color == 'green'
+                                    color: notesModel.color == "green"
                                         ? Colors.green
                                         : Theme.of(context).canvasColor),
                           ),
                         ),
                         onTap: () {
-                          notesModel.entityBeingEdited.color = 'green';
-                          notesModel.setColor('green');
+                          notesModel.entityBeingEdited.color = "green";
+                          notesModel.setColor("green");
                         },
                       ),
                       const Spacer(),
@@ -113,14 +119,14 @@ class NotesEntry extends StatelessWidget {
                             shape: Border.all(width: 18, color: Colors.blue) +
                                 Border.all(
                                     width: 6,
-                                    color: notesModel.color == 'blue'
+                                    color: notesModel.color == "blue"
                                         ? Colors.blue
                                         : Theme.of(context).canvasColor),
                           ),
                         ),
                         onTap: () {
-                          notesModel.entityBeingEdited.color = 'blue';
-                          notesModel.setColor('blue');
+                          notesModel.entityBeingEdited.color = "blue";
+                          notesModel.setColor("blue");
                         },
                       ),
                       const Spacer(),
@@ -130,14 +136,14 @@ class NotesEntry extends StatelessWidget {
                             shape: Border.all(width: 18, color: Colors.yellow) +
                                 Border.all(
                                     width: 6,
-                                    color: notesModel.color == 'yellow'
+                                    color: notesModel.color == "yellow"
                                         ? Colors.yellow
                                         : Theme.of(context).canvasColor),
                           ),
                         ),
                         onTap: () {
-                          notesModel.entityBeingEdited.color = 'yellow';
-                          notesModel.setColor('yellow');
+                          notesModel.entityBeingEdited.color = "yellow";
+                          notesModel.setColor("yellow");
                         },
                       ),
                       const Spacer(),
@@ -147,31 +153,14 @@ class NotesEntry extends StatelessWidget {
                             shape: Border.all(width: 18, color: Colors.grey) +
                                 Border.all(
                                     width: 6,
-                                    color: notesModel.color == 'grey'
+                                    color: notesModel.color == "grey"
                                         ? Colors.grey
                                         : Theme.of(context).canvasColor),
                           ),
                         ),
                         onTap: () {
-                          notesModel.entityBeingEdited.color = 'grey';
-                          notesModel.setColor('grey');
-                        },
-                      ),
-                      const Spacer(),
-                      GestureDetector(
-                        child: Container(
-                          decoration: ShapeDecoration(
-                            shape: Border.all(width: 18, color: Colors.purple) +
-                                Border.all(
-                                    width: 6,
-                                    color: notesModel.color == 'purple'
-                                        ? Colors.purple
-                                        : Theme.of(context).canvasColor),
-                          ),
-                        ),
-                        onTap: () {
-                          notesModel.entityBeingEdited.color = 'purple';
-                          notesModel.setColor('purple');
+                          notesModel.entityBeingEdited.color = "grey";
+                          notesModel.setColor("grey");
                         },
                       ),
                       const Spacer(),
@@ -186,7 +175,7 @@ class NotesEntry extends StatelessWidget {
     );
   }
 
-  void _save(BuildContext context, NotesModel notesModel) async {
+  void _save(BuildContext context, NotesModel model) async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -196,8 +185,8 @@ class NotesEntry extends StatelessWidget {
       await NotesDBWorker.db.update(notesModel.entityBeingEdited);
     }
 
-    notesModel.loadData('notes', NotesDBWorker.db);
-    notesModel.setStackIndex(0);
+    notesModel.loadData("notes", NotesDBWorker.db);
+    model.setStackIndex(0);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Note saved'),
       backgroundColor: Colors.green,
