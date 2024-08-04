@@ -13,13 +13,9 @@ class NotesDBWorker {
     return _db;
   }
 
-  DatabaseFactory get databaseFactoryFfi => databaseFactoryFfi;
-
   Future<Database> init() async {
-    DatabaseFactory databaseFactory = await databaseFactoryFfi;
     String path = join(utils.docsDir.path, "notes.db");
-    Database? db = await openDatabase(path, version: 1, onOpen: (db) {},
-        onCreate: (Database DB, int version) async {
+    Database? db = await openDatabase(path, version: 1, onOpen: (db) {}, onCreate: (Database DB, int version) async {
       await DB.execute("CREATE TABLE IF NOT EXISTS notes ("
           "id INTEGER PRIMARY KEY,"
           "title TEXT,"
@@ -78,8 +74,7 @@ class NotesDBWorker {
   //обновление заметки
   Future update(Note note) async {
     Database db = await database;
-    return await db.update("notes", noteToMap(note),
-        where: "id = ?", whereArgs: [note.id]);
+    return await db.update("notes", noteToMap(note), where: "id = ?", whereArgs: [note.id]);
   }
 
   //удаление заметки

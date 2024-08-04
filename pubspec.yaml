@@ -42,6 +42,7 @@ dependencies:
   intl: 
   image_picker: ^1.1.2
   flutter_calendar_carousel:
+  sqflite_common_ffi: ^2.3.3
 
 
 dev_dependencies:

@@ -19,7 +19,7 @@ class BaseModel extends Model {
   }
 
   //вызывается когдаа добавляется или удаляется элемент
-  void loadData(String entityType, dynamic dataBase) async {
+  Future<void> loadData(String entityType, dynamic dataBase) async {
     //get.All() заменяет entityList
     entityList = await dataBase.getAll();
     //обновляет экран
