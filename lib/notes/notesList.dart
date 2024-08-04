@@ -35,6 +35,9 @@ class NotesList extends StatelessWidget {
                   case "grey":
                     color = Colors.grey;
                     break;
+                  case "purple":
+                    color = Colors.purple;
+                    break;
                 }
                 return Container(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),

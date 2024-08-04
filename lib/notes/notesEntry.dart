@@ -164,6 +164,22 @@ class NotesEntry extends StatelessWidget {
                         },
                       ),
                       const Spacer(),
+                      GestureDetector(
+                        child: Container(
+                          decoration: ShapeDecoration(
+                            shape: Border.all(width: 18, color: Colors.purple) +
+                                Border.all(
+                                    width: 6,
+                                    color: notesModel.color == "purple"
+                                        ? Colors.purple
+                                        : Theme.of(context).canvasColor),
+                          ),
+                        ),
+                        onTap: () {
+                          notesModel.entityBeingEdited.color = "purple";
+                          notesModel.setColor("purple");
+                        },
+                      ),
                     ],
                   ),
                 ),
