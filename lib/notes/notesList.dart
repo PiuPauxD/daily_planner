@@ -46,6 +46,7 @@ class NotesList extends StatelessWidget {
                       motion: const ScrollMotion(),
                       children: [
                         SlidableAction(
+                          borderRadius: BorderRadius.circular(20),
                           label: 'delete',
                           backgroundColor: Colors.red,
                           icon: Icons.delete_outline,
@@ -100,20 +101,25 @@ class NotesList extends StatelessWidget {
             title: const Text('Delete Note'),
             content: Text('Are you sure you want to delete ${note.title}?'),
             actions: [
-              ElevatedButton(
-                onPressed: () {
-                  NotesDBWorker.db.delete(note.id!);
-                  Navigator.of(alertContext).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Note deleted'),
-                      backgroundColor: Colors.red,
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                  notesModel.loadData('notes', NotesDBWorker.db);
-                },
-                child: const Text('Delete'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(alertContext).pop();
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      NotesDBWorker.db.delete(note.id!);
+                      Navigator.of(alertContext).pop();
+
+                      notesModel.loadData('notes', NotesDBWorker.db);
+                    },
+                    child: const Text('Delete'),
+                  ),
+                ],
               ),
             ],
           );
