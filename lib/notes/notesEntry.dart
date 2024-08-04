@@ -1,5 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:flutter_book/notes/notesList.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'notesDBWorker.dart';
 import 'notesModel.dart' show NotesModel, notesModel;

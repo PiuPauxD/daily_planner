@@ -30,7 +30,7 @@ class NotesList extends StatelessWidget {
                     color = Colors.blue;
                     break;
                   case "yellow":
-                    Colors.yellow;
+                    color = Colors.yellow;
                     break;
                   case "grey":
                     color = Colors.grey;
