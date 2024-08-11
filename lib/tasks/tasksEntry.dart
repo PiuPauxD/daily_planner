@@ -66,15 +66,14 @@ class TasksEntry extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.today_outlined),
                   title: const Text("Due Date"),
-                  subtitle: Text('${DateTime.now()}'),
+                  subtitle: Text('${taskModel.chosenDate}'),
                   trailing: IconButton(
                       onPressed: () async {
                         // ignore: unused_local_variable
-                        String chosenDate = await utils.selectDate(
+                        String? chosenDate = await utils.selectDate(
                             context,
                             taskModel,
-                            taskModel.entityBeingEdited.dueDate ??
-                                '11.8.2024'.toString());
+                            taskModel.entityBeingEdited.dueDate.toString());
                         taskModel.entityBeingEdited.dueDate = chosenDate;
                       },
                       icon: const Icon(Icons.edit_outlined)),
@@ -97,10 +96,10 @@ class TasksEntry extends StatelessWidget {
       await TasksDBWorker.db.update(taskModel.entityBeingEdited);
     }
 
-    taskModel.loadData("notes", TasksDBWorker.db);
+    taskModel.loadData("tasks", TasksDBWorker.db);
     model.setStackIndex(0);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Note saved'),
+      content: Text('Task saved'),
       backgroundColor: Colors.green,
       duration: Duration(seconds: 2),
     ));

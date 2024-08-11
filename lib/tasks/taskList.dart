@@ -56,7 +56,7 @@ class TasksList extends StatelessWidget {
                         : const TextStyle(color: Colors.black),
                   ),
                   subtitle: Text(
-                    task.dueDate = DateTime.now().toString(),
+                    task.dueDate = task.dueDate.toString(),
                     style: task.completed == 'true'
                         ? TextStyle(
                             color: Theme.of(context).disabledColor,
