@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import '../baseModel.dart';
 
 class Note {
@@ -7,6 +9,7 @@ class Note {
   String? color;
 
 //Переопределение реализации по умолчанию, представляему классом Object
+  @override
   String toString() {
     return "{id = $id, title = $title, content = $content, color = $color}";
   }

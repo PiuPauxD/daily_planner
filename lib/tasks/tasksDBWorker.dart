@@ -1,4 +1,7 @@
+// ignore: duplicate_ignore
 // ignore: file_names
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'package:flutter_book/tasks/tasksModel.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';

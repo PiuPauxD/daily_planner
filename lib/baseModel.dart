@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import "package:scoped_model/scoped_model.dart";
 
 class BaseModel extends Model {
