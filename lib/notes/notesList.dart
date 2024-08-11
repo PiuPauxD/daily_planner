@@ -18,6 +18,7 @@ class NotesList extends StatelessWidget {
               itemCount: notesModel.entityList.length,
               itemBuilder: (BuildContext buildContext, int index) {
                 Note note = notesModel.entityList[index];
+                //определение цвета заметки
                 Color color = Colors.white;
                 switch (note.color) {
                   case "red":
@@ -77,8 +78,11 @@ class NotesList extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
+                //сохраняет заметку
                 notesModel.entityBeingEdited = Note();
+                //устанавливает начальный цвет
                 notesModel.setColor('');
+                //перемещает пользователя на экран создания заметки
                 notesModel.setStackIndex(1);
               },
               child: const Icon(
@@ -104,13 +108,13 @@ class NotesList extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.of(alertContext).pop();
                     },
                     child: const Text('Cancel'),
                   ),
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () {
                       NotesDBWorker.db.delete(note.id!);
                       Navigator.of(alertContext).pop();

@@ -12,6 +12,7 @@ class NotesEntry extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+//изменяет значение TextFormField
   NotesEntry({super.key}) {
     _titleEditingController.addListener(() {
       notesModel.entityBeingEdited.title = _titleEditingController.text;
@@ -38,15 +39,16 @@ class NotesEntry extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: Row(
               children: [
-                ElevatedButton(
+                TextButton(
                   child: const Text('Cancel'),
                   onPressed: () {
+                    //устанавливает область видимости
                     FocusScope.of(context).requestFocus(FocusNode());
                     model.setStackIndex(0);
                   },
                 ),
                 const Spacer(),
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
                     _save(context, notesModel);
                     model.setStackIndex(0);

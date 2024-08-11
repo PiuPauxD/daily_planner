@@ -15,12 +15,7 @@ Future selectDate(
   //Устанавливает текущий день
   DateTime initialDate = DateTime.now();
   //разделет дату на части точкой
-  List dateParts = dateString.split(".");
-  initialDate = DateTime(
-    int.parse(dateParts[0]),
-    int.parse(dateParts[1]),
-    int.parse(dateParts[2]),
-  );
+  initialDate = DateTime.now();
   //вызывает всплывающий календарь
   DateTime? picked = await showDatePicker(
     context: context,
@@ -29,11 +24,8 @@ Future selectDate(
     lastDate: DateTime(2100),
   );
 
-  //сохранение выбранной даты
   if (picked != null) {
-    model.setChosenDate(
-      DateFormat.yMMMMd("en_US").format(picked.toLocal()),
-    );
-    return "${picked.day}. ${picked.month}. ${picked.year}";
+    model.setChosenDate(DateFormat.yMMMMd("en_US").format(picked.toLocal()));
+    return '${picked.year},${picked.month},${picked.day}';
   }
 }

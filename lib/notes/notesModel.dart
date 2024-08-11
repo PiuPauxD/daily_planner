@@ -6,11 +6,13 @@ class Note {
   String content = ' ';
   String? color;
 
+//Переопределение реализации по умолчанию, представляему классом Object
   String toString() {
     return "{id = $id, title = $title, content = $content, color = $color}";
   }
 }
 
+//Задание цвета на фон заметки
 class NotesModel extends BaseModel {
   String? color;
   void setColor(String color) {
@@ -19,4 +21,5 @@ class NotesModel extends BaseModel {
   }
 }
 
+//Создание экземпляра
 NotesModel notesModel = NotesModel();

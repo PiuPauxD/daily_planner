@@ -4,18 +4,29 @@ import '../utils.dart' as utils;
 import 'notesModel.dart';
 
 class NotesDBWorker {
+  //Убеждаемся, что существует только 1 экземпляр класса
+
+  //Создание закрытого конструктора
   NotesDBWorker._();
+  //вызов конструктора
   static final NotesDBWorker db = NotesDBWorker._();
 
+//проверяем есть ли что-то в БД
   Database? _db;
   Future get database async {
+    //Если БД пустая вызывается метод init()
     _db ??= await init();
     return _db;
   }
 
+//Убеждаемся, что БД существует
   Future<Database> init() async {
+    //Объединяем путь к катологу документов с именем файла notes
     String path = join(utils.docsDir.path, "notes.db");
-    Database? db = await openDatabase(path, version: 1, onOpen: (db) {}, onCreate: (Database DB, int version) async {
+    //Создание объекта Database из сформированного пути
+    Database? db = await openDatabase(path, version: 1, onOpen: (db) {},
+        onCreate: (Database DB, int version) async {
+      //выполнение SQL-запроса для создания таблицы notes, если такая не создана
       await DB.execute("CREATE TABLE IF NOT EXISTS notes ("
           "id INTEGER PRIMARY KEY,"
           "title TEXT,"
@@ -26,6 +37,7 @@ class NotesDBWorker {
     return db;
   }
 
+//преобразование объекта в note из map
   Note noteFromMap(Map<String, dynamic> map) {
     Note note = Note();
     note.id = map["id"];
@@ -35,6 +47,7 @@ class NotesDBWorker {
     return note;
   }
 
+//преобразование объекта из note в map
   Map<String, dynamic> noteToMap(Note note) {
     Map<String, dynamic> map = {};
     map["id"] = note.id;
@@ -74,7 +87,8 @@ class NotesDBWorker {
   //обновление заметки
   Future update(Note note) async {
     Database db = await database;
-    return await db.update("notes", noteToMap(note), where: "id = ?", whereArgs: [note.id]);
+    return await db.update("notes", noteToMap(note),
+        where: "id = ?", whereArgs: [note.id]);
   }
 
   //удаление заметки

@@ -9,7 +9,7 @@ class BaseModel extends Model {
   // ignore: prefer_typing_uninitialized_variables
   var entityBeingEdited;
   //хранит дату, выбранную при редактировании
-  late String chosenDate;
+  String? chosenDate;
 
 //возвращает выбранную дату в модель
   void setChosenDate(String date) {
