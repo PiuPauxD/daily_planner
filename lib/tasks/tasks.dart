@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_book/tasks/taskList.dart';
+import 'package:flutter_book/tasks/tasksDBWorker.dart';
 import 'package:flutter_book/tasks/tasksEntry.dart';
 import 'package:flutter_book/tasks/tasksModel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Tasks extends StatelessWidget {
-  const Tasks({super.key});
+  Tasks({super.key}) {
+    taskModel.loadData("tasks", TasksDBWorker.db);
+  }
 
   @override
   Widget build(BuildContext context) {

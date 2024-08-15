@@ -62,7 +62,7 @@ class FlutterBook extends StatelessWidget {
             const Appointments(),
             const Contacts(),
             Notes(),
-            const Tasks()
+            Tasks()
           ]),
         ),
       ),
