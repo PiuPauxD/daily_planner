@@ -57,13 +57,15 @@ class FlutterBook extends StatelessWidget {
                 ),
               ],
             ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.light_mode_outlined),
+              ),
+            ],
           ),
-          body: TabBarView(children: [
-            const Appointments(),
-            const Contacts(),
-            Notes(),
-            Tasks()
-          ]),
+          body: TabBarView(
+              children: [Appointments(), const Contacts(), Notes(), Tasks()]),
         ),
       ),
     );

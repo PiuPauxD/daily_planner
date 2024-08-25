@@ -49,8 +49,8 @@ class AppointmentsDBWorker {
     appointment.id = map["id"];
     appointment.title = map["title"];
     appointment.description = map["description"];
-    appointment.apptDate = map["apptDate"];
-    appointment.apptTime = map["apptTime"];
+    appointment.apptDate = map["${appointment.apptDate}"];
+    appointment.apptTime = map["${appointment.apptTime}"];
     return appointment;
   }
 
@@ -60,19 +60,19 @@ class AppointmentsDBWorker {
     map["id"] = appointment.id;
     map["title"] = appointment.title;
     map["description"] = appointment.description;
-    map["apptDate"] = appointment.apptDate;
-    map["apptTime"] = appointment.apptTime;
+    map["${appointment.apptDate}"] = appointment.apptDate;
+    map["${appointment.apptTime}"] = appointment.apptTime;
     return map;
   }
 
 //создание заметки  в бд
   Future create(Appointment appointment) async {
     Database db = await database;
-    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM tasks");
+    var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM appointments");
     Object? id = val.first["id"];
     id ??= 1;
     return await db.rawInsert(
-        "INSERT INTO tasks (id, title, description, apptDate, apptTime) "
+        "INSERT INTO appointments (id, title, description, apptDate, apptTime) "
         "VALUES (?, ?, ?, ?, ?)",
         [
           id,
@@ -86,14 +86,14 @@ class AppointmentsDBWorker {
   //получение указанной задач
   Future<Appointment> get(int id) async {
     Database db = await database;
-    var rec = await db.query("tasks", where: "id = ?", whereArgs: [id]);
+    var rec = await db.query("appointments", where: "id = ?", whereArgs: [id]);
     return appointmentFromMap(rec.first);
   }
 
   //извлечение всех задач за 1 вызов
   Future<List> getAll() async {
     Database db = await database;
-    var recs = await db.query("tasks");
+    var recs = await db.query("appointments");
     var list =
         recs.isNotEmpty ? recs.map((m) => appointmentFromMap(m)).toList() : [];
     return list;
@@ -102,7 +102,7 @@ class AppointmentsDBWorker {
   //обновление задач
   Future update(Appointment appointment) async {
     Database db = await database;
-    return await db.update("tasks", appointmentToMap(appointment),
+    return await db.update("appointments", appointmentToMap(appointment),
         where: "id = ?", whereArgs: [appointment.id]);
   }
 
