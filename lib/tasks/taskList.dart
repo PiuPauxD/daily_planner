@@ -97,7 +97,7 @@ class TasksList extends StatelessWidget {
         context: context,
         builder: (BuildContext alertContext) {
           return AlertDialog(
-            title: const Text('Delete Note'),
+            title: const Text('Delete task'),
             content:
                 Text('Are you sure you want to delete ${task.description}?'),
             actions: [

@@ -8,9 +8,9 @@ class Appointment {
   String title = ' ';
   String description = ' ';
   //дата встречи
-  DateTime? apptDate = DateTime.now();
+  String? apptDate;
   //время встречи
-  TimeOfDay? apptTime = TimeOfDay.now();
+  String? apptTime;
 
   @override
   String toString() {

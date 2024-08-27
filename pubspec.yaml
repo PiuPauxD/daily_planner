@@ -44,6 +44,8 @@ dependencies:
   flutter_calendar_carousel:
   sqflite_common_ffi: ^2.3.3
   sqlite3_flutter_libs: ^0.5.24
+  cross_file_image: ^1.1.0
+  share_plus: ^10.0.2
 
 
 dev_dependencies:

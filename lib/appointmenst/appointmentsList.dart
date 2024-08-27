@@ -17,9 +17,9 @@ class AppointmentsList extends StatelessWidget {
       Appointment appointment = appointmentsModel.entityList[i];
 
       markedDateMap.add(
-        appointment.apptDate!,
+        appointment.apptDate as DateTime,
         Event(
-          date: appointment.apptDate!,
+          date: appointment.apptDate as DateTime,
           icon: Container(
             decoration: const BoxDecoration(color: Colors.blue),
           ),
