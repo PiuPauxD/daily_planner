@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_book/contacts/contactsDBWorker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_book/contacts/contactsModel.dart';
+import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_book/utils.dart' as utils;
@@ -42,11 +43,12 @@ class ContactEntry extends StatelessWidget {
         model: contactModel,
         child: ScopedModelDescendant<ContactsModel>(builder:
             (BuildContext context, Widget? child, ContactsModel model) {
-          File avatarFile = File('${utils.docsDir.path}avatar');
+          File avatarFile = File(join(utils.docsDir.path, "avatar"));
           // if (avatarFile.existsSync() == false) {
-          //   if (model.entityBeingEdited.id != null) {
+          //   if (model.entityBeingEdited.id! != null &&
+          //       model.entityBeingEdited != null) {
           //     avatarFile = File(
-          //         utils.docsDir.path + model.entityBeingEdited.id.toString());
+          //         utils.docsDir.path + model.entityBeingEdited.id!.toString());
           //   }
           // }
 
@@ -124,7 +126,8 @@ class ContactEntry extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () {
-                      File avatarFile = File('${utils.docsDir.path}avatar');
+                      File avatarFile =
+                          File(join(utils.docsDir.path, "avatar"));
                       if (avatarFile.existsSync()) {
                         avatarFile.deleteSync();
                       }
@@ -162,50 +165,50 @@ class ContactEntry extends StatelessWidget {
       backgroundColor: Colors.green,
       duration: Duration(seconds: 2),
     ));
-    File avatarFile = File('${utils.docsDir.path}avatar');
+    File avatarFile = File(join(utils.docsDir.path, "avatar"));
     if (avatarFile.existsSync()) {
       avatarFile.renameSync(
           utils.docsDir.path + contactModel.entityBeingEdited.id.toString());
     }
   }
-}
 
-Future selectAvatar(BuildContext context) {
-  return showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: [
-                GestureDetector(
-                  child: const Text('Take a picture'),
-                  onTap: () async {
-                    XFile? cameraImage = await ImagePicker()
-                        .pickImage(source: ImageSource.camera);
-                    if (cameraImage != null) {
-                      XFile('${utils.docsDir.path}avatar');
-                      contactModel.triggerRebuild();
-                    }
-                    // ignore: use_build_context_synchronously
-                    Navigator.of(dialogContext).pop();
-                  },
-                ),
-                GestureDetector(
-                  child: const Text('Select from Gallery'),
-                  onTap: () async {
-                    XFile? galleryImage = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
-                    if (galleryImage != null) {
-                      File("${utils.docsDir.path}avatar");
-                      contactModel.triggerRebuild();
-                    }
-                    Navigator.of(dialogContext).pop();
-                  },
-                ),
-              ],
+  Future selectAvatar(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  GestureDetector(
+                    child: const Text('Take a picture'),
+                    onTap: () async {
+                      XFile? cameraImage = await ImagePicker()
+                          .pickImage(source: ImageSource.camera);
+                      if (cameraImage != null) {
+                        cameraImage.saveTo(join(utils.docsDir.path, "avatar"));
+                        contactModel.triggerRebuild();
+                      }
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(dialogContext).pop();
+                    },
+                  ),
+                  GestureDetector(
+                    child: const Text('Select from Gallery'),
+                    onTap: () async {
+                      XFile? galleryImage = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      if (galleryImage != null) {
+                        galleryImage.saveTo(join(utils.docsDir.path, "avatar"));
+                        contactModel.triggerRebuild();
+                      }
+                      Navigator.of(dialogContext).pop();
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      });
+          );
+        });
+  }
 }

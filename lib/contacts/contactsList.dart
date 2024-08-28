@@ -5,6 +5,7 @@ import 'package:flutter_book/contacts/contactsDBWorker.dart';
 import 'package:flutter_book/contacts/contactsModel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:path/path.dart';
 import 'package:flutter_book/utils.dart' as utils;
 
 class ContactsList extends StatelessWidget {
@@ -40,8 +41,8 @@ class ContactsList extends StatelessWidget {
                       ]),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: Colors.indigoAccent,
-                          foregroundColor: Colors.white,
+                          // backgroundColor: Colors.indigoAccent,
+                          // foregroundColor: Colors.white,
                           backgroundImage:
                               avatarFileExists ? FileImage(avatarFile) : null,
                           child: avatarFileExists
@@ -54,7 +55,8 @@ class ContactsList extends StatelessWidget {
                             // ignore: unnecessary_null_comparison
                             contact.phone == null ? null : Text(contact.phone),
                         onTap: () async {
-                          File avatarFile = File("${utils.docsDir.path}avatar");
+                          File avatarFile =
+                              File(join(utils.docsDir.path, "avatar"));
                           if (avatarFile.existsSync()) {
                             avatarFile.deleteSync();
                           }
@@ -76,7 +78,7 @@ class ContactsList extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add, color: Colors.white),
             onPressed: () async {
-              File avatarFile = File("${utils.docsDir.path}avatar");
+              File avatarFile = File(join(utils.docsDir.path, "avatar"));
               if (avatarFile.existsSync()) {
                 avatarFile.deleteSync();
               }
